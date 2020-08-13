@@ -2,29 +2,53 @@ import React from 'react';
 
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
+import api from '../../services/api';
+
 import './styles.css';
 
-const Teacheritem: React.FC = () => {
-  return (
-    <article className="teacher-item">
-        <header>
-            <img src="https://avatars0.githubusercontent.com/u/22475482?s=460&u=79177f08a3d9c1d5fc022e7634e992938991695e&v=4" alt="Romulo Eduardo"/>
-            <div>
-                <strong>Romulo Eduardo </strong>
-                <span>Química</span>
-            </div>
-        </header>
-        <p>Teste de corpo de parágrafo.</p>
-        <footer>
-            <p>Preço/hora
-            <strong>R$ 80,00</strong></p>
-            <button type="button">
-                <img src={whatsappIcon} alt="Whatsapp"/>
-                Entrar em contato
-            </button>
-        </footer> 
-    </article>
-  )
+interface TeacherItemProps {
+    teacherClass: {
+        id: number,
+        avatar: string,
+        bio: string,
+        cost: number,
+        name: string,
+        subject: string,
+        whatsapp: string
+    }
 }
 
-export default Teacheritem;
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacherClass }) => {
+
+    async function handleCreateNewConnection() {
+        api.post("/connections", {
+            user_id: teacherClass.id
+        });
+    }
+
+    return (
+        <article className="teacher-item">
+            <header>
+                <img src={teacherClass.avatar} alt={teacherClass.name} />
+                <div>
+                    <strong>{teacherClass.name}</strong>
+                    <span>{teacherClass.subject}</span>
+                </div>
+            </header>
+            <p>{teacherClass.bio}</p>
+            <footer>
+                <p>Preço/hora
+            <strong>R$ {teacherClass.cost}</strong></p>
+                <a
+                    onClick={handleCreateNewConnection}
+                    href={`https://wa.me/${teacherClass.whatsapp}`}
+                    target="_blank">
+                    <img src={whatsappIcon} alt="Whatsapp" />
+                Entrar em contato
+                </a>
+            </footer>
+        </article >
+    )
+}
+
+export default TeacherItem;

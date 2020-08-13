@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
 
 import PageHeader from "../../components/PageHeader";
 import Input from "../../components/Input";
@@ -13,6 +14,8 @@ import "./styles.css";
 
 
 const TeacherForm: React.FC = () => {
+
+  const history = useHistory();
 
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -58,6 +61,7 @@ const TeacherForm: React.FC = () => {
       schedule: scheduleItems
     }).then(() => {
       alert("Cadastro realizado com sucesso!");
+      history.push("/");
     }).catch(() => {
       alert("Erro no cadastro!");
     });
@@ -111,7 +115,8 @@ const TeacherForm: React.FC = () => {
                 { value: "Artes", label: "Artes" },
                 { value: "Biologia", label: "Biologia" },
                 { value: "Química", label: "Química" },
-                { value: "Matemática", label: "Matemática" }
+                { value: "Matemática", label: "Matemática" },
+                { value: "Física", label: "Física" }
               ]}
             />
             <Input
