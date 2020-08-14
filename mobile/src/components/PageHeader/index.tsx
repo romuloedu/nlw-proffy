@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
     View,
     Image,
@@ -13,7 +13,8 @@ import logoImg from "../../assets/images/logo.png";
 import styles from './styles';
 
 interface PageHeaderProps {
-    title: string
+    title: string,
+    headerRight?: ReactNode;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = (props) => {
@@ -40,9 +41,14 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
                 />
             </View>
 
-            <Text style={styles.title}>
-                {props.title}
-            </Text>
+            <View style={styles.header}>
+                <Text style={styles.title}>
+                    {props.title}
+                </Text>
+                {props.headerRight}
+            </View>
+
+            {props.children}
         </View>
     );
 }

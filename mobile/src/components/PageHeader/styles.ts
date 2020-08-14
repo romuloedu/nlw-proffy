@@ -20,7 +20,14 @@ const styles = StyleSheet.create({
         fontSize: 24,
         lineHeight: 32,
         maxWidth: 160,
-        marginVertical: 30
+        marginTop: 30,
+        marginBottom: 20
+    },
+
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
     }
 });
 
